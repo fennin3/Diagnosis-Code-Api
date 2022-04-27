@@ -10,15 +10,11 @@ class Category(models.Model):
     
 
 class DiagnosisCode(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='api_v1')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='diagnose_codes')
     code = models.CharField(max_length=10)
-    full_code = models.CharField(max_length=20, null=True, blank=True)
+    full_code = models.CharField(max_length=20)
     abbreviated_description = models.TextField(null=True, blank=True)
     full_description = models.TextField(null=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        self.full_code = self.category.code + self.code
-        super(DiagnosisCode, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.full_code

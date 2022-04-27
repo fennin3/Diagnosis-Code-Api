@@ -142,7 +142,6 @@ class TestViewTestCase(APITestCase):
         self.assertEqual(response.status_code,200)
         self.assertEqual(response.json()['id'],self.diagnosisCode.id)
 
-
     # Testing the delete (DELETE) method and confirming that record was deleted
     def test_diagnosisCode_delete_DELETE(self):
         response = self.client.delete(self.base_url + f'{self.diagnosisCode.id}')
