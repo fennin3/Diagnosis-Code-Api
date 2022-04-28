@@ -28,7 +28,7 @@ Build a RESTful API that can allow a firm to utilize an internationally recogniz
 ## Architectural Consideration
 1. The ```full_code``` of the ```DiagnosisCode``` Model is simply the ```category code``` and the ```code``` of the ```DiagnosisCode``` Model concatenated. The ```full_code``` is populated with the data of these two fields automatically and saved into the database.
 
-2. Each DiagnosisCode object has a category field which is foreign key relating to th CategoryCode Model, The Category Model provides the categoryTitle and categoryCode fields for the DiagnosisCode Model
+2. Each DiagnosisCode object has a category field which is foreign key relating to the CategoryCode Model, The Category Model provides the categoryTitle and categoryCode fields for the DiagnosisCode Model
 
 ## Setup Instructions
 To run this project
