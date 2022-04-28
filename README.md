@@ -43,7 +43,7 @@ Open a new terminal and run:
 ```
 docker ps
 docker exec -it <CONTAINER_NAME> bash
-python manage.py makemigrations api_v1
+python manage.py makemigrations diagnosis_code
 python manage.py migrate
 python manage.py loaddata diagnosis_code_data.json
 ```
