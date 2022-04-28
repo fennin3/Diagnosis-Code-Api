@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #Local apps
-    'api_v1',
+    'diagnosis_code',
 
     # External apps
     'rest_framework',
@@ -89,16 +89,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'test',
-#         'USER': 'postgres',
-#         'PASSWORD': '1234',
-#         'HOST': 'localhost',
-#         "PORT":"5432"
-#     }
-# }
 
 
 # Password validation
