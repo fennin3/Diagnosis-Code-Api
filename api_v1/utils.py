@@ -1,13 +1,16 @@
 import csv
-from django.shortcuts import get_object_or_404
-
-# Local import
-from api_v1.models import Category, DiagnosisCode
+from django.core.mail import send_mail
 
                                    
 # Function for sending mail
-def send_mail():
-    pass
+def sending_mail(message,subject, email):
+    send_mail(
+        subject=subject,
+        message=message,
+        from_email= 'rennintech.com',
+        recipient_list=[email],
+        fail_silently=False,
+    )
 
 
 # Function for checking if an uploaded file is a csv file
@@ -23,22 +26,13 @@ def decode_utf8(input_iterator):
         yield l.decode('utf-8')
 
 
+# Avoiding Circular imports
+
 # Function to handle reading the content of the uploaded file and creating the diagnosis code records
-def create_diagnosis_code_from_csv(uploaded_file):
+def process_file(uploaded_file):
     try:
         reader = csv.DictReader(decode_utf8(uploaded_file))
-        diagnosis_code_list = []
-        for row in reader:
-            category = get_object_or_404(Category, id=row['category'])
-            diagnosis_code_list.append(
-                DiagnosisCode(
-                code=row['code'],
-                full_code=row['full_code'],
-                abbreviated_description=row['abbreviated_description'],
-                full_description=row['full_description'],
-                category=category)
-                )
-        DiagnosisCode.objects.bulk_create(diagnosis_code_list)
-        return True
+        contents = [row for row in reader]
+        return contents
     except Exception:
-        return False
+        []
