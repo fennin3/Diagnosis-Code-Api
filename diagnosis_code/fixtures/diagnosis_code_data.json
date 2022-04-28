@@ -1,0 +1,75 @@
+[
+    {
+        "model":"diagnosis_code.Category",
+        "pk":1,
+        "fields":{
+            "title":"Testing Category For Diagnosis Code",
+            "code":"001A"
+        }
+    },
+    {
+        "model":"diagnosis_code.Category",
+        "pk":2,
+        "fields":{
+            "title":"Testing Category For Diagnosis Code 2",
+            "code":"002A"
+        }
+    },
+
+    {
+        "model":"diagnosis_code.DiagnosisCode",
+        "pk":1,
+        "fields":{
+            "category": 1,
+            "full_code":"001A11",
+            "code":"11",
+            "abbreviated_description":"Abbr Desc 1",
+            "full_description":"Full Desc"
+        }
+    },
+
+    {
+        "model":"diagnosis_code.DiagnosisCode",
+        "pk":2,
+        "fields":{
+            "category": 2,
+            "full_code":"002A22",
+            "code":"22",
+            "abbreviated_description":"Abbr Desc 2",
+            "full_description":"Full Desc"
+        }
+    },
+    {
+        "model":"diagnosis_code.DiagnosisCode",
+        "pk":3,
+        "fields":{
+            "category": 1,
+            "full_code":"001A23",
+            "code":"23",
+            "abbreviated_description":"Abbr Desc 3",
+            "full_description":"Full Desc"
+        }
+    },
+    {
+        "model":"diagnosis_code.DiagnosisCode",
+        "pk":4,
+        "fields":{
+            "category": 2,
+            "full_code":"002A24",
+            "code":"24",
+            "abbreviated_description":"Abbr Desc 4",
+            "full_description":"Full Desc "
+        }
+    },
+    {
+        "model":"diagnosis_code.DiagnosisCode",
+        "pk":5,
+        "fields":{
+            "category": 2,
+            "full_code":"002A25",
+            "code":"25",
+            "abbreviated_description":"Abbr Desc 4",
+            "full_description":"Full Desc "
+        }
+    }
+]
