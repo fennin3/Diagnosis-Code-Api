@@ -4,8 +4,7 @@ from django.utils.http import urlencode
 from rest_framework import status
 from django.urls import reverse
 from django.conf import settings
-from django.core.files.uploadedfile import SimpleUploadedFile
-import time
+
 
 
 BASE_DIR = settings.BASE_DIR
