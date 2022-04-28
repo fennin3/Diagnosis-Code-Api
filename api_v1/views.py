@@ -13,7 +13,7 @@ from .tasks import create_diagnosis_codes_async_task
 
 
 
-# CRUD Operations ViewSet For Diagnosis Code Records
+# CRUD Operations ViewSet For Category Records
 class CategoryViewSet(ModelViewSet):
     serializer_class = srz.CategorySerializer
     queryset = Category.objects.all()
