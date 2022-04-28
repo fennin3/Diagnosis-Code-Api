@@ -10,7 +10,7 @@ Build a RESTful API that can allow a firm to utilize an internationally recogniz
 * API to Create, Update and Delete diagnosis code records
 * API to List all records 
 * API to retrieve the details of a diagnosis code record
-* API for uploading file to create multiple diagnose code records
+* API for uploading file to create multiple diagnose code records ([download sample file](static/test.csv))
 * Email notification to alert users when multiple records creation by file upload is successful
 
 ## Technologies Used
