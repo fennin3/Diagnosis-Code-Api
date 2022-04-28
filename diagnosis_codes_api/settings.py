@@ -14,21 +14,16 @@ from pathlib import Path
 import environ
 import os
 
-
-env = environ.Env()
-environ.Env.read_env()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-secret_key_ = env('SECRET_KEY')
-SECRET_KEY = secret_key_
+SECRET_KEY = "ad12_rte=yu+%ovm-p=b6(sbrg_nx1**_4utydqri=+xv"
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost','0.0.0.0']
 
 
 # Application definition
@@ -41,11 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # External Libraries
-    'rest_framework',
-
     #Local apps
     'api_v1',
+
+    # External apps
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -154,14 +149,13 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20
 }
 
-google_password = env('google_pass')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST ='smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'rennintech@gmail.com'
-EMAIL_HOST_PASSWORD = google_password
+EMAIL_HOST_PASSWORD = 'xtioscgwkfkvqgpf'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
