@@ -6,12 +6,17 @@ from rest_framework.views import APIView
 from rest_framework import status
 
 # Local imports
-from api_v1.models import DiagnosisCode
+from api_v1.models import DiagnosisCode, Category
 from api_v1 import serializers as srz
 from api_v1.utils import check_is_CSV, process_file
 from .tasks import create_diagnosis_codes_async_task
 
 
+
+# CRUD Operations ViewSet For Diagnosis Code Records
+class CategoryViewSet(ModelViewSet):
+    serializer_class = srz.CategorySerializer
+    queryset = Category.objects.all()
 
 # CRUD Operations ViewSet For Diagnosis Code Records
 class DiagnosisCodeViewSet(ModelViewSet):
@@ -39,10 +44,10 @@ class UploadCSVFileView(APIView):
             create_diagnosis_codes_async_task.delay(file_content,data.validated_data.get('email'))
             return Response({
                 "message":"Data upload is successful"
-            }, status=status.HTTP_201_CREATED)
+            }, status=status.HTTP_200_OK)
         else:
             return Response(
                 {
                     "detail":"File is not CSV type"
-                }, status=status.HTTP_417_EXPECTATION_FAILED
+                }, status=status.HTTP_400_BAD_REQUEST
             )

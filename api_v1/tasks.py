@@ -11,10 +11,11 @@ def create_diagnosis_codes_async_task(contents, email):
         diagnosis_code_list = []
         for row in contents:
             category = get_object_or_404(Category, id=row['category'])
+
             diagnosis_code_list.append(
                 DiagnosisCode(
                 code=row['code'],
-                full_code=row['full_code'],
+                full_code=str(category.code)+str(row['code']),
                 abbreviated_description=row['abbreviated_description'],
                 full_description=row['full_description'],
                 category=category)
