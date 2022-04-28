@@ -16,10 +16,11 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+environ.Env.read_env()
 
-
-
-SECRET_KEY = "ad12_rte=yu+%ovm-p=b6(sbrg_nx1**_4utydqri=+xv"
+ 
+SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = True
 
@@ -155,7 +156,7 @@ EMAIL_HOST ='smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'rennintech@gmail.com'
-EMAIL_HOST_PASSWORD = 'xtioscgwkfkvqgpf'
+EMAIL_HOST_PASSWORD = env('google_pass')
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
