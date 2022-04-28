@@ -1,45 +1,61 @@
-version: "3.9"
-   
+version: '3.9'
+ 
 services:
-    web:
-        build: .
-        command: python manage.py runserver 0.0.0.0:8000
-        volumes:
-            - .:/code
-        ports:
-            - "8000:8000"
-        environment:
-            - POSTGRES_NAME=postgres
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-        depends_on:
-            db:
-                condition: service_healthy
+  app:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    command: "python3 manage.py runserver 0.0.0.0:8000"
+ 
+    environment:
+      - DB_HOST=db
+      - DB_NAME=app
+      - DB_USER=postgres
+      - DB_PASS=supersecretpassword
+    depends_on:
+      db:
+        condition: service_healthy
 
-        links:
-            - db:db
-        networks:
-            - djangonetwork
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=supersecretpassword
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 
-    db:
-        image: postgres
-        container_name: db
-        environment:
-            POSTGRES_DB: "db"
-            POSTGRES_HOST_AUTH_METHOD: "trust"
-        # volumes:
-            # - ./data/db:/var/lib/postgresql/data
+  redis:
+    image: redis:alpine
+  celery:
+    restart: always
+    build:
+      context: .
+    command: celery -A diagnosis_codes_api worker -l info
+    volumes:
+      - .:/code
+    environment:
+      - DB_HOST=db
+      - DB_NAME=app
+      - DB_USER=postgres
+      - DB_PASS=supersecretpassword
+    depends_on:
+      - db
+      - redis
+      - app
+volumes:
+  pgdata:
 
-        healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U postgres"]
-            interval: 5s
-            timeout: 5s
-            retries: 5
-
-        networks:
-            - djangonetwork
 
 networks:
-    djangonetwork:
-        driver: bridge
+  djangonetwork:
+    driver: bridge
