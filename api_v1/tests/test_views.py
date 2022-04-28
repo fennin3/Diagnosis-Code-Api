@@ -3,9 +3,15 @@ from api_v1.models import DiagnosisCode, Category
 from django.utils.http import urlencode
 from rest_framework import status
 from django.urls import reverse
+from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
+import time
 
 
+BASE_DIR = settings.BASE_DIR
 base_url = 'diagnosis-list'
+category_list = 'category-list'
+category_detail = 'category-detail'
 
 class TestViewListCreate(APITestCase):
     def setUp(self):
@@ -72,7 +78,6 @@ class TestViewListCreate(APITestCase):
         } 
         response = self.client.post(self.base_url, req_body)
         self.assertEqual(response.status_code, 400) 
-
 
 
 class TestRetrieveUpdateDelete(APITestCase):
@@ -183,9 +188,7 @@ class TestRetrieveUpdateDelete(APITestCase):
         response = self.client.get(f'{reverse(base_url)}{self.diagnosisCode.id}')
         self.assertEqual(response.status_code, 404)
 
-
-
-class TestPagination(APITestCase):
+class TestDiagnosisCodePagination(APITestCase):
     def setUp(self):
         # Create a category object.
         self.category = Category.objects.create(code="A00", title="Cholera")
@@ -215,3 +218,37 @@ class TestPagination(APITestCase):
         self.assertEqual(len(response.data['results']), 25)  # Max length can't exceed 25
         self.assertNotEqual(response.data['previous'], None)
         self.assertNotEqual(response.data['next'], None)
+
+class TestFileUpload(APITestCase):
+    def setUp(self):
+    # Create a category object.
+        self.category = Category.objects.create(code="A00", title="Cholera")
+
+
+    def test_file_upload(self):
+        with open(f"{BASE_DIR}/static/test.csv", 'rb') as file:
+            diagnosis_codes = DiagnosisCode.objects.all()
+            self.assertEqual(diagnosis_codes.count(), 0)
+            response = self.client.post(reverse('upload_csv'), {'email':'enninfrancis47@gmail.com','file':file}, format='multipart')
+            self.assertEqual(response.status_code, 200)
+
+class TestCategory(APITestCase):
+    def setUp(self):
+    # Create a category object.
+        self.category = Category.objects.create(code="A00", title="Cholera")
+
+        # create 50 Diagnosis objects
+        for count in range(50):
+            Category.objects.create(
+                code=f"AA{count}",
+                title=f"Category {count}"
+            )
+    
+    def test_category_list(self):
+        response = self.client.get(reverse(category_list))
+        self.assertEqual(response.status_code, 200)
+
+    def test_category_retrieve(self):
+        response = self.client.get(reverse(category_detail, args=[self.category.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['code'], self.category.code)
