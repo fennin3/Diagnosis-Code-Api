@@ -10,6 +10,6 @@ router.register(r'', DiagnosisCodeViewSet, basename='diagnosis')
 
 urlpatterns = [
     path('upload',UploadCSVFileView.as_view(), name="upload_csv"),
-    path('', include(router.urls)),
+    path('', include(router.urls)), #urls for viewsets
 ]
 
