@@ -36,7 +36,7 @@ To run this project
 2. Build and run docker container with a single command: docker-compose up —build
 
 
-## Migration and Populating the database with initial data
+## Migrating and Populating the database with initial data
 Open a new terminal and run:
 ```
 docker ps
