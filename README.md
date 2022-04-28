@@ -33,8 +33,10 @@ Build a RESTful API that can allow a firm to utilize an internationally recogniz
 ## Setup Instructions
 To run this project
 1. Clone project
-2. Build and run docker container with a single command: docker-compose up —build
-
+2. Build and run docker container with a single command: 
+```
+docker-compose up —build
+```
 
 ## Migrating and Populating the database with initial data
 Open a new terminal and run:
